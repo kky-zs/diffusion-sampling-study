@@ -1,0 +1,45 @@
+# Frozen config 12.10.2026
+# Research question: How do different schedulers and different numbers of image-generation denoising steps affect the
+# quality (fidelity), diversity, prompt matching, cost and generation speed of images (portrait) created with Stable Diffusion 1.5?
+
+model:
+  id: stable-diffusion-v1-5/stable-diffusion-v1-5   # license: CreativeML OpenRAIL-M
+  dtype: float16
+  safety_checker: true
+
+fixed:
+  height: 512
+  width: 512
+  guidance_scale: 7.5
+  batch_size: 1
+  negative_prompt: "cartoon, painting, illustration, deformed, blurry, low quality, text, watermark"
+
+schedulers:
+  ddim:
+    class: DDIMScheduler
+    kwargs: {}
+    call_kwargs: {eta: 0.0}               # deterministic
+  dpmpp_2m:
+    class: DPMSolverMultistepScheduler
+    kwargs: {algorithm_type: dpmsolver++, solver_order: 2}
+    call_kwargs: {}
+
+steps: [10, 20, 40]
+seeds: [0, 1, 2, 3, 4, 5, 6, 7]
+
+prompts:
+  p1: "a studio portrait photo of a person, neutral expression, plain gray background, soft lighting"
+  p2: "a close-up headshot photo of a person looking at the camera, neutral expression, natural window light"
+  p3: "a passport-style photo of a person, frontal view, neutral expression, white background"
+  p4: "a portrait photograph of a person outdoors, overcast daylight, shallow depth of field, neutral expression"
+  p5: "a black and white studio portrait of a person, dramatic side lighting, neutral expression"
+
+# Optional near-converged reference for describing convergence of final outputs.
+# These are EXTRA images outside the 240 main ones (5 prompts x 8 seeds = 40).
+reference:
+  enabled: true
+  scheduler: ddim
+  steps: 100
+
+paths:
+  out_dir: /content/drive/MyDrive/diffusion_scheduler_study   # on Drive, survives disconnects

@@ -1,0 +1,6 @@
+# Pin exact versions after your first successful run (see run_info.json / pip freeze).
+diffusers
+transformers
+accelerate
+torch
+pyyaml
