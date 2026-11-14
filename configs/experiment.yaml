@@ -1,4 +1,4 @@
-# Frozen config 12.10.2026
+# Frozen config 12.11.2026
 # Research question: How do different schedulers and different numbers of image-generation denoising steps affect the
 # quality (fidelity), diversity, prompt matching, cost and generation speed of images (portrait) created with Stable Diffusion 1.5?
 
